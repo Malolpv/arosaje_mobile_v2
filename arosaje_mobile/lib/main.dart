@@ -1,3 +1,4 @@
+import 'package:arosaje_mobile/screens/login.dart';
 import 'package:arosaje_mobile/screens/register.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RegisterScreen(),
+      home: const LoginScreen(),
     );
   }
 }

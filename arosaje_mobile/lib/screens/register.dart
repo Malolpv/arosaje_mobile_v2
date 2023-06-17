@@ -54,19 +54,22 @@ class RegisterScreenState extends State<RegisterScreen> {
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    registerController.registerUser(_pseudoController.text,
-                        _emailController.text, _passwordController.text);
+                    String message = await registerController.registerUser(
+                        _pseudoController.text,
+                        _emailController.text,
+                        _passwordController.text);
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: const Text('Votre compte à été créé'),
+                        content: Text(message),
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
                     );
                   }
                 },
-                child: const Text('Register'),
+                child: const Text('Créer mon compte'),
               ),
             ],
           ),

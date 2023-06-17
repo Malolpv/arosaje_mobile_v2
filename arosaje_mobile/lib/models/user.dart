@@ -5,6 +5,7 @@ class User {
   final String pseudo;
   final String email;
   final String password;
+  final bool isBotaniste;
   List<Garden> gardens;
 
   User(
@@ -12,6 +13,7 @@ class User {
       required this.pseudo,
       required this.email,
       required this.password,
+      required this.isBotaniste,
       this.gardens = const []});
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -24,7 +26,18 @@ class User {
       pseudo: json['pseudo'],
       email: json['email'],
       password: json['password'],
+      isBotaniste: json['is_botaniste'],
       gardens: gardens,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['pseudo'] = pseudo;
+    data['email'] = email;
+    data['password'] = password;
+    data['is_botaniste'] = isBotaniste;
+
+    return data;
   }
 }

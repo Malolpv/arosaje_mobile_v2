@@ -1,3 +1,4 @@
+import 'package:arosaje_mobile/services/auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterController extends ChangeNotifier {
@@ -47,19 +48,18 @@ class RegisterController extends ChangeNotifier {
     return null;
   }
 
-  Future<bool> registerUser(
+  Future<String> registerUser(
       String pseudo, String email, String password) async {
+    String message = "Votre compte à été créé";
     // Simulate an asynchronous registration process
-    await Future.delayed(const Duration(seconds: 2));
+    AuthService authService = AuthService();
 
-    // Perform your registration logic here
-    // You can send the registration data to an API, validate it, etc.
+    try {
+      await authService.registerUser(pseudo, email, password);
+    } on Exception catch (error) {
+      message = error.toString().split(': ')[1];
+    }
 
-    // Simulate registration success
-    bool registrationSuccess = true;
-    _message = 'Erreur lors de la création du compte';
-
-    notifyListeners();
-    return registrationSuccess;
+    return message;
   }
 }

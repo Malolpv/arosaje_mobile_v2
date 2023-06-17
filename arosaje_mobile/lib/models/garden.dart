@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 class Garden {
   final int id;
   final String name;
-  final Double latitude;
-  final Double longitude;
+  final num latitude;
+  final num longitude;
   final String picture;
   final int userId;
 

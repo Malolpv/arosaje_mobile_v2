@@ -1,14 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:arosaje_mobile/components/bottom_nav.dart';
 import 'package:arosaje_mobile/controllers/list_gardens.dart';
 import 'package:arosaje_mobile/models/garden.dart';
 import 'package:flutter/material.dart';
+import '../navigation/navigation.dart';
+import 'package:provider/provider.dart';
 
 class ListGardens extends StatefulWidget {
-  final ListGardensController listGardensController;
+  final ListGardensController listGardensController =
+      ListGardensController("mytoken");
 
-  ListGardens(this.listGardensController, {super.key});
+  ListGardens({super.key});
 
   @override
   State<ListGardens> createState() => _ListGardensState();
@@ -19,13 +23,11 @@ class _ListGardensState extends State<ListGardens> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: const Text('Mes jardins'),
-        actions: [
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.menu)),
-          IconButton(onPressed: () => {}, icon: const Icon(Icons.settings))
-        ],
         centerTitle: true,
       ),
+      bottomNavigationBar: const BottomNav(0),
       body: Column(
         children: [
           Container(
@@ -58,6 +60,11 @@ class _ListGardensState extends State<ListGardens> {
                                 MemoryImage(base64Decode(item.picture))),
                         title: Text(item.name),
                         trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Provider.of<NavigationController>(context,
+                                  listen: false)
+                              .changeScreen('/gardenDetails');
+                        },
                       ),
                     );
                   },

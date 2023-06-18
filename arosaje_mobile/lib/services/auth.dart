@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:arosaje_mobile/constants/constant.dart';
+import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class AuthService {
-  static const String apiUrl =
-      'http://127.0.0.1:5000/api/v1'; // Replace with your API URL
+  static const String apiUrl = API_BASE_URL; // Replace with your API URL
 
   Future<bool> registerUser(
       String pseudo, String email, String password) async {
@@ -29,7 +31,7 @@ class AuthService {
     if (response.statusCode == 200) {
       // Registration successful
       final responseData = json.decode(response.body);
-      //TODO handle token
+      //TODO handel Token
 
       return true;
     } else {
@@ -39,7 +41,7 @@ class AuthService {
     }
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     final url = Uri.parse('$apiUrl/login');
 
     final user = {
@@ -59,10 +61,9 @@ class AuthService {
 
     if (response.statusCode == 200) {
       // Registration successful
-      final responseData = json.decode(response.body);
-      //TODO Handle token
+      final token = json.decode(response.body)['token'];
 
-      return true;
+      return token;
     } else {
       final responseData = jsonDecode(response.body);
       // Registration failed

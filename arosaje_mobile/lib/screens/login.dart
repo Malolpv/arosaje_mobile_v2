@@ -45,7 +45,7 @@ class LoginScreenState extends State<LoginScreen> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    String message = await loginController.login(
+                    String message = await loginController.login(context,
                         _emailController.text, _passwordController.text);
 
                     ScaffoldMessenger.of(context).showSnackBar(

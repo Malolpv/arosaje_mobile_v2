@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:arosaje_mobile/models/garden.dart';
 
 class User {
@@ -17,9 +19,9 @@ class User {
       this.gardens = const []});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    List<Garden> gardens = (json['gardens'] as List)
-        .map((gardenJson) => Garden.fromJson(gardenJson))
-        .toList();
+    // List<Garden> gardens = (json.decode['gardens'] as List)
+    //     .map((gardenJson) => Garden.fromJson(gardenJson))
+    //     .toList();
 
     return User(
       id: json['id'],
@@ -27,7 +29,7 @@ class User {
       email: json['email'],
       password: json['password'],
       isBotaniste: json['is_botaniste'],
-      gardens: gardens,
+      // gardens: gardens,
     );
   }
 

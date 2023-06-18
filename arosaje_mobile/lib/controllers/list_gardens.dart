@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:arosaje_mobile/models/garden.dart';
 import 'package:arosaje_mobile/models/user.dart';
 import 'package:arosaje_mobile/services/user.dart';
@@ -23,10 +25,12 @@ class ListGardensController extends ChangeNotifier {
     UserService userService = UserService();
 
     //retrieve logged user
-    final User logedUser = Utils.getPayloadFromToken(_token);
+    final logedUserId = Utils.getPayloadFromToken(_token)['id'];
 
     try {
-      _gardens = await userService.fetchUserGardens(logedUser.id, _token);
+      _gardens = await userService.fetchUserGardens(logedUserId, _token);
+    } on SocketException {
+      _errorMessage = 'Erreur de connexion';
     } on Exception catch (error) {
       _errorMessage = error.toString().split(": ")[1];
     }

@@ -1,6 +1,8 @@
+import 'package:arosaje_mobile/controllers/list_gardens.dart';
 import 'package:arosaje_mobile/screens/garden_details.dart';
 import 'package:arosaje_mobile/screens/list_gardens.dart';
 import 'package:arosaje_mobile/screens/login.dart';
+import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'navigation/navigation.dart';
@@ -8,7 +10,10 @@ import 'navigation/navigation.dart';
 void main() {
   runApp(
     MultiProvider(
-      providers: [ListenableProvider(create: (_) => NavigationController())],
+      providers: [
+        ListenableProvider(create: (_) => NavigationController()),
+        ListenableProvider(create: (_) => TokenController())
+      ],
       child: const MyApp(),
     ),
   );
@@ -57,14 +62,21 @@ class MyApp extends StatelessWidget {
   List<Page> getPages(context) {
     NavigationController navigation =
         Provider.of<NavigationController>(context);
-
     List<Page> pages = [];
 
-    pages.add(MaterialPage(child: ListGardens()));
+    String? token =
+        Provider.of<TokenController>(context, listen: false).getToken();
 
-    switch (navigation.screenName) {
-      case '/gardenDetails':
-        pages.add(const MaterialPage(child: GardenDetails()));
+    //not logged in
+    if (token == null) {
+      pages.add(const MaterialPage(child: LoginScreen()));
+    } else {
+      pages.add(MaterialPage(child: ListGardens(ListGardensController(token))));
+
+      switch (navigation.screenName) {
+        case '/gardenDetails':
+          pages.add(const MaterialPage(child: GardenDetails()));
+      }
     }
 
     return pages;

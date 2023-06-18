@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:arosaje_mobile/navigation/navigation.dart';
 import 'package:arosaje_mobile/services/auth.dart';
+import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginController extends ChangeNotifier {
   //Attributes
@@ -27,17 +32,22 @@ class LoginController extends ChangeNotifier {
     return null;
   }
 
-  Future<String> login(String email, String password) async {
+  Future<String> login(
+      BuildContext context, String email, String password) async {
     String message = "Bienvenue !";
     // Simulate an asynchronous registration process
     AuthService authService = AuthService();
 
     try {
-      await authService.login(email, password);
+      String token = await authService.login(email, password);
+      Provider.of<TokenController>(context, listen: false).setToken(token);
+    } on SocketException {
+      message = "Impossible de joindre le serveur de connection";
     } on Exception catch (error) {
       message = error.toString().split(': ')[1];
     }
 
+    Provider.of<NavigationController>(context, listen: false).changeScreen('/');
     return message;
   }
 }

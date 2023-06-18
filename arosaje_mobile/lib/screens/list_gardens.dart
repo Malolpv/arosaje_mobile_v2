@@ -4,15 +4,14 @@ import 'dart:convert';
 import 'package:arosaje_mobile/components/bottom_nav.dart';
 import 'package:arosaje_mobile/controllers/list_gardens.dart';
 import 'package:arosaje_mobile/models/garden.dart';
+import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
 import '../navigation/navigation.dart';
 import 'package:provider/provider.dart';
 
 class ListGardens extends StatefulWidget {
-  final ListGardensController listGardensController =
-      ListGardensController("mytoken");
-
-  ListGardens({super.key});
+  final ListGardensController listGardensController;
+  const ListGardens(this.listGardensController, {super.key});
 
   @override
   State<ListGardens> createState() => _ListGardensState();

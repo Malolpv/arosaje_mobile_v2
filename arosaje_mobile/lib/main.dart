@@ -1,4 +1,6 @@
+import 'package:arosaje_mobile/controllers/add_garden.dart';
 import 'package:arosaje_mobile/controllers/list_gardens.dart';
+import 'package:arosaje_mobile/screens/add_garden.dart';
 import 'package:arosaje_mobile/screens/garden_details.dart';
 import 'package:arosaje_mobile/screens/list_gardens.dart';
 import 'package:arosaje_mobile/screens/login.dart';
@@ -76,6 +78,11 @@ class MyApp extends StatelessWidget {
       switch (navigation.screenName) {
         case '/gardenDetails':
           pages.add(const MaterialPage(child: GardenDetails()));
+          break;
+        case '/addGarden':
+          pages.add(
+              MaterialPage(child: AddGardenScreen(AddGardenController(token))));
+          break;
       }
     }
 

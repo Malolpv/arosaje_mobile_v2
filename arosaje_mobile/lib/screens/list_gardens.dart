@@ -1,10 +1,7 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:arosaje_mobile/components/bottom_nav.dart';
 import 'package:arosaje_mobile/controllers/list_gardens.dart';
-import 'package:arosaje_mobile/models/garden.dart';
-import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
 import '../navigation/navigation.dart';
 import 'package:provider/provider.dart';
@@ -32,7 +29,10 @@ class _ListGardensState extends State<ListGardens> {
           Container(
             child: IconButton(
               icon: const Icon(Icons.add),
-              onPressed: () => {},
+              onPressed: () => {
+                Provider.of<NavigationController>(context, listen: false)
+                    .changeScreen('/addGarden')
+              },
             ),
           ),
           Expanded(
@@ -55,6 +55,7 @@ class _ListGardensState extends State<ListGardens> {
                       ),
                       child: ListTile(
                         leading: CircleAvatar(
+                            radius: 48,
                             backgroundImage:
                                 MemoryImage(base64Decode(item.picture))),
                         title: Text(item.name),

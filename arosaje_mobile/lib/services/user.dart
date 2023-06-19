@@ -27,4 +27,28 @@ class UserService {
       throw Exception(responseData['message']);
     }
   }
+
+  Future<bool> createUserGarden(int userId, token, Garden garden) async {
+    final url = Uri.parse('$API_BASE_URL/users/$userId/gardens');
+
+    final body = jsonEncode(garden);
+
+    final response = await http.post(
+      url,
+      body: body,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      },
+    );
+
+    if (response.statusCode == 201) {
+      //Garden created
+      return true;
+    } else {
+      final responseData = jsonDecode(response.body);
+      // Registration failed
+      throw Exception(responseData['message']);
+    }
+  }
 }

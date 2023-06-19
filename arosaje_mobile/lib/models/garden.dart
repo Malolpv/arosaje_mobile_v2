@@ -23,4 +23,14 @@ class Garden {
         picture: json['picture'],
         userId: json['user_id']);
   }
+
+  Map<String, dynamic> toJson() {
+    final data = <String, dynamic>{};
+    data['name'] = name;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['picture'] = picture;
+
+    return data;
+  }
 }

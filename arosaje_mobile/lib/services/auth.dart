@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class AuthService {
   static const String apiUrl = API_BASE_URL; // Replace with your API URL
 
-  Future<bool> registerUser(
+  Future<String> registerUser(
       String pseudo, String email, String password) async {
     final url = Uri.parse('$apiUrl/register');
 
@@ -30,10 +30,9 @@ class AuthService {
 
     if (response.statusCode == 200) {
       // Registration successful
-      final responseData = json.decode(response.body);
-      //TODO handel Token
+      final token = json.decode(response.body)['token'];
 
-      return true;
+      return token;
     } else {
       final responseData = jsonDecode(response.body);
       // Registration failed

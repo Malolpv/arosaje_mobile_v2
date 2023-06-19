@@ -57,6 +57,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     String message = await registerController.registerUser(
+                        context,
                         _pseudoController.text,
                         _emailController.text,
                         _passwordController.text);

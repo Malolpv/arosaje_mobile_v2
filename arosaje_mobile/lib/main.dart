@@ -4,6 +4,7 @@ import 'package:arosaje_mobile/screens/add_garden.dart';
 import 'package:arosaje_mobile/screens/garden_details.dart';
 import 'package:arosaje_mobile/screens/list_gardens.dart';
 import 'package:arosaje_mobile/screens/login.dart';
+import 'package:arosaje_mobile/screens/register.dart';
 import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,7 +72,11 @@ class MyApp extends StatelessWidget {
 
     //not logged in
     if (token == null) {
-      pages.add(const MaterialPage(child: LoginScreen()));
+      if (navigation.screenName == '/register') {
+        pages.add(const MaterialPage(child: RegisterScreen()));
+      } else {
+        pages.add(const MaterialPage(child: LoginScreen()));
+      }
     } else {
       pages.add(MaterialPage(child: ListGardens(ListGardensController(token))));
 

@@ -1,5 +1,7 @@
 import 'package:arosaje_mobile/controllers/login.dart';
+import 'package:arosaje_mobile/navigation/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -57,6 +59,14 @@ class LoginScreenState extends State<LoginScreen> {
                   }
                 },
                 child: const Text('Me connecter'),
+              ),
+              const SizedBox(height: 20.0),
+              ElevatedButton(
+                onPressed: () {
+                  Provider.of<NavigationController>(context, listen: false)
+                      .changeScreen('/register');
+                },
+                child: const Text('Créer un compte'),
               ),
             ],
           ),

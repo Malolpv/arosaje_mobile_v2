@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:arosaje_mobile/controllers/add_garden.dart';
 import 'package:arosaje_mobile/navigation/navigation.dart';
-import 'package:arosaje_mobile/store/token_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
